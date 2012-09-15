@@ -1,0 +1,593 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pre",
+				"previous"
+			],
+			[
+				"array",
+				"array"
+			],
+			[
+				"lic",
+				"license"
+			],
+			[
+				"de",
+				"delta"
+			],
+			[
+				"on",
+				"onScrollEnd"
+			],
+			[
+				"del",
+				"deltaY"
+			],
+			[
+				"com",
+				"com"
+			],
+			[
+				"arra",
+				"array"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"pa",
+				"panelScrollers"
+			],
+			[
+				"pane",
+				"panel-inner"
+			],
+			[
+				"sc",
+				"scrollTo"
+			],
+			[
+				"d",
+				"device-width"
+			],
+			[
+				"tab",
+				"tabIndex"
+			],
+			[
+				"no",
+				"none"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"l",
+				"length"
+			],
+			[
+				"class",
+				"className"
+			],
+			[
+				"backg",
+				"background-color"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 60.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"git",
+				"Git: Init"
+			],
+			[
+				"z",
+				"Zen Coding: Zen as you type"
+			],
+			[
+				"zen",
+				"Zen Coding: Wrap zen as you type"
+			],
+			[
+				"thml",
+				"Tidy HTML"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"git sa",
+				"Git: Status"
+			],
+			[
+				"repase",
+				"DocBlockr: Reparse comment block"
+			],
+			[
+				"do",
+				"DocBlockr: Reparse comment block"
+			],
+			[
+				"doc",
+				"DocBlockr: Reparse comment block"
+			],
+			[
+				"TO",
+				"Show TODOs: Open files only"
+			],
+			[
+				"sava",
+				"Project: Save As"
+			],
+			[
+				"todo",
+				"Show TODOs: Open files only"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"git r",
+				"Git: Graph Current File"
+			],
+			[
+				"git s",
+				"Git: Status"
+			],
+			[
+				"package",
+				"Package Control: Discover Packages"
+			],
+			[
+				"TODO",
+				"Show TODOs: Open files only"
+			],
+			[
+				"show",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"ali",
+				"Preferences: Alignment File Settings – Default"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"sta",
+				"Stackoverflow: Search from Input"
+			],
+			[
+				"for",
+				"Format: Javascript"
+			],
+			[
+				"",
+				"Format: Javascript"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"php",
+				"Snippet: Create a skeleton test method with a data provider"
+			],
+			[
+				"ze",
+				"Zen Coding: Split or join tag"
+			],
+			[
+				"align",
+				"Preferences: Alignment File Settings – Default"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"pa in",
+				"Package Control: Install Package"
+			],
+			[
+				"pa li",
+				"Package Control: List Packages"
+			],
+			[
+				"packa in",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 514.0
+	},
+	"console":
+	{
+		"height": 266.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/Documents/GitHub/easycms/plugins/cakephp-plugins",
+		"/E/Documents/GitHub/easycms/plugins/build.py",
+		"/E/Documents/GitHub/license/app/Config/database.php",
+		"/E/Documents/GitHub/license/app/Config/core.php",
+		"/E/Documents/GitHub/license/app/webroot/index.php",
+		"/E/Documents/GitHub/easycms/index.php",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/D/xampp/apache/conf/extra/httpd-vhosts.conf",
+		"/E/Documents/GitHub/license/app/webroot/test.php",
+		"/D/xampp/apache/logs/error.log",
+		"/D/xampp/apache/logs/shijun-access.log",
+		"/D/xampp/apache/logs/license-access.log",
+		"/E/Documents/GitHub/license/app/index.php",
+		"/D/htdocs/wiki/LocalSettings.php",
+		"/D/xampp/apache/conf/httpd.conf",
+		"/D/htdocs/wiki/includes/DefaultSettings.php",
+		"/D/htdocs/wiki/mw-config/index.php",
+		"/D/htdocs/wiki/includes/WebStart.php",
+		"/D/htdocs/wiki/index.php",
+		"/D/htdocs/wiki/includes/Setup.php",
+		"/D/htdocs/wiki/config/index.php5",
+		"/D/htdocs/wiki/mw-config/index.php5",
+		"/D/htdocs/wiki/config/index.php",
+		"/E/Documents/GitHub/license/.gitignore",
+		"/E/Downloads/51CTO下载-精仿19楼社区整站/说明.txt",
+		"/E/Documents/GitHub/license/app/Console/cake.php",
+		"/E/Documents/GitHub/license/app/Config/acl.ini.php",
+		"/E/Downloads/51CTO下载-精仿19楼社区整站/免费精仿19楼社区整站.txt",
+		"/E/Downloads/51CTO下载-精仿19楼社区整站/10元下载VIP源码.txt",
+		"/C/Users/tomato/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/tomato/AppData/Roaming/Sublime Text 2/Settings/Session.sublime_session",
+		"/D/havardcs50/havardcs50.sublime-project",
+		"/Z/www/www-dev/www/protected/modules/default/controllers/SearchController.php",
+		"/Z/www/www-dev/www/views/default/search/so.tpl",
+		"/Z/www/www-dev/www/views/default/layout/head.tpl",
+		"/Z/www/www-dev/www/public/css/style.css",
+		"/Z/www/www-dev/www/views/default/index/index.tpl",
+		"/Z/www/www-dev/www/protected/config/thriftConf.php",
+		"/D/xampp/htdocs/backbone-relational-tutorial/static/js/forum.js",
+		"/D/xampp/htdocs/backbone-relational-tutorial/static/index.html",
+		"/D/xampp/htdocs/backbone-relational-tutorial/models.js",
+		"/Z/www/mobile_image_search/mobileimage/views/default/layout/zencoding.css",
+		"/Z/www/mobile_image_search/mobileimage/views/default/layout/zencoding.tpl",
+		"/D/xampp/htdocs/license-manager/index.php",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/User/CSS.sublime-settings",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Alignment/Default (Windows).sublime-keymap",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/PHPUnit/PHPUnit.sublime-settings",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/SublimeCodeIntel/Default (Windows).sublime-keymap",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/JsFormat/Default (Windows).sublime-keymap",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/ZenCoding/Default.sublime-keymap",
+		"/Z/www/mobile_image_search/mobileimage/views/default/layout/home.tpl",
+		"/Z/www/mobile_image_search/mobileimage/mobileimage.sublime-project",
+		"/Z/www/mobile_image_search/mobileimage/views/default/help/index.tpl",
+		"/D/xampp/htdocs/iscroll/src/iscroll.js",
+		"/D/xampp/htdocs/iscroll/examples/hammerjs/index.html",
+		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/TestController.php",
+		"/D/Replace+Sublime+Text+2+Icon.alfredextension",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/SublimeCodeIntel/Base File.sublime-settings",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Alignment/Base File.sublime-settings",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Terminal/Base File.sublime-settings",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Z/www/mobile_image_search/mobileimage/public/css/style.css",
+		"/Z/www/mobile_image_search/mobileimage/public/javascript/lib/zepto.js",
+		"/D/xampp/htdocs/iscroll/examples/pull-to-refresh/index.html",
+		"/D/xampp/htdocs/iscroll/examples/simple/index.html",
+		"/D/xampp/htdocs/iscroll/examples/horizontal-scroll/index.html",
+		"/D/xampp/htdocs/iscroll/examples/carousel/index.html",
+		"/D/xampp/htdocs/iscroll/examples/check-dom-changes/index.html",
+		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Language - English/en_US.dic",
+		"/D/xampp/htdocs/iscroll/examples/ipad/index.html",
+		"/Z/www/mobile_web_search/views/default/index/index.tpl",
+		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/IndexController.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/config/main.php",
+		"/D/xampp/htdocs/iscroll/src/ender.js",
+		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/HelpController.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/AdviceController.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/SearchController.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/lib/services/ImageService.php",
+		"/Z/www/mobile_image_search/mobileimage/views/default/index/index.tpl",
+		"/Z/www/mobile_image_search/mobileimage/views/default/advice/index.tpl",
+		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/ImageUtil.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/ImageSearchClass.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/ImageController.php",
+		"/Z/www/image_search/protected/modules/wap/controllers/IndexController.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/lib/services/ImageAdviceService.php",
+		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/Controller.php",
+		"/Z/www/mobile_image_search/mobileimage/views/default/layout/main.tpl",
+		"/Z/www/image_search/protected/lib/classes/BaseAdviceController.php",
+		"/Z/www/image_search/views/default/advice/advice.tpl",
+		"/Z/www/image_search/build.sh",
+		"/Z/www/image_search/protected/config/console.php",
+		"/Z/www/image_search/protected/config/adapter.php",
+		"/Z/www/mobile_image_search/mobileimage/public/css/reset.css",
+		"/Z/www/mobile_web_search/views/default/layout/main.tpl",
+		"/Z/www/mobile_image_search/mobileimage/views/default/layout/header.tpl",
+		"/C/Program Files/Sublime Text 2/sublime_text - 副本.exe",
+		"/C/Program Files/Sublime Text 2/sublime_text_backup.exe",
+		"/Z/www/mobile_image_search/mobileimage/public/images/background.png"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"license.shijun.com",
+			"Directory",
+			"project",
+			"z/",
+			"id=\"news\"",
+			"section",
+			"footer",
+			"header",
+			"div",
+			"cakeDescription",
+			"user",
+			"6",
+			"onScrollMove",
+			"onScrollEnd",
+			"_resetPos",
+			"onScrollEnd",
+			"panelScroller",
+			"tab",
+			"<li class=\"tab\"></li>",
+			"\n		",
+			"\n",
+			"\n		",
+			"		<li class=\"tab\"></li>\n",
+			"\n		",
+			"tab",
+			"iScroll",
+			"scroll",
+			"onScrollEnd",
+			"$",
+			"panelInner",
+			"\"",
+			"\"C:\\Users\\shijun\\AppData\\Roaming\\Sublime Text 2\\Packages\\",
+			"copyrightprovider",
+			"panel",
+			"from",
+			"45px",
+			"mainScroller",
+			"scroller",
+			":  ",
+			":",
+			"panels",
+			"panelS",
+			"panels",
+			"display",
+			"padding",
+			"width: 100%",
+			"u",
+			"topOffset",
+			"$searchClass",
+			"private function get",
+			"_g",
+			"=  =",
+			",'",
+			"=",
+			" += +",
+			"actionG",
+			"logHeader",
+			"printResult",
+			"///",
+			"  =  ",
+			"= >",
+			"< =",
+			"=",
+			"=([a-z])",
+			"=([a-z\\$])",
+			"=([a-z]\\$)",
+			"=([a-z])",
+			"=([\\$a-z])",
+			"=([$a-z])",
+			",$",
+			"try{",
+			"if("
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"$this->service",
+			"protected function _get",
+			"G",
+			"==",
+			", '",
+			" = ",
+			"=",
+			"_g",
+			"// ",
+			" = ",
+			"=> ",
+			" <=",
+			" = ",
+			" = $1",
+			" = $0",
+			" = $1$2",
+			" = $1",
+			" = \\1",
+			" = \\0",
+			" = \\1",
+			", $",
+			"try {",
+			"if ("
+		],
+		"reverse": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 38.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.git":
+	{
+		"height": 144.0
+	},
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"images",
+				"protected/lib/services/ImageService.php"
+			],
+			[
+				"sear",
+				"protected/modules/default/controllers/SearchController.php"
+			],
+			[
+				"indexc",
+				"protected/modules/default/controllers/IndexController.php"
+			],
+			[
+				"searchcon",
+				"protected/modules/default/controllers/SearchController.php"
+			],
+			[
+				"hammerjs",
+				"/D/xampp/htdocs/iscroll/examples/hammerjs/index.html"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Z/www/www-dev/www/mobilewebsearch.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 227.0,
+	"status_bar_visible": true
+}

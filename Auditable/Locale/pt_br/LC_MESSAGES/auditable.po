@@ -1,0 +1,35 @@
+msgid "created"
+msgstr "criado"
+msgid "modified"
+msgstr "alterado"
+msgid "deleted"
+msgstr "excluído"
+msgid "Field"
+msgstr "Campo"
+
+# Mensagens com placeholders
+
+msgid "Record \:action\:<br />\n \:data"
+msgstr "Registro \:action\:<br />\n \:data"
+msgid "\"\:field\" as \"\:value\""
+msgstr "\"\:field\" com \"\:value\""
+msgid "\"\:field\" from \"\:old\" to \"\:new\""
+msgstr "\"\:field\" de \"\:old\" para \"\:new\""
+
+# Mensagens de erro
+
+msgid "Can't save log entry for statement: \"%s\""
+msgstr "Não foi possível salvar entrada no log para declaração: \"%s\""
+
+msgid "You need to define AuditableConfig::$Logger"
+msgstr "Você precisa definir AuditableConfig::$Logger"
+
+# Tipos de log
+msgid "create"
+msgstr "criação"
+msgid "modify"
+msgstr "modificação"
+msgid "delete"
+msgstr "exclusão"
+msgid "undefined"
+msgstr "indefinida"

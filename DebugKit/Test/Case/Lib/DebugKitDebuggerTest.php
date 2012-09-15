@@ -52,11 +52,10 @@ class DebugKitDebuggerTest extends CakeTestCase {
  * @return void
  */
 	public function testOutput() {
-
 		$firecake = FireCake::getInstance('TestFireCake');
 		Debugger::getInstance('DebugKitDebugger');
 		Debugger::addFormat('fb', array('callback' => 'DebugKitDebugger::fireError'));
-		Debugger::output('fb');
+		Debugger::outputAs('fb');
 
 		set_error_handler('ErrorHandler::handleError');
 		$foo .= '';
@@ -64,12 +63,12 @@ class DebugKitDebuggerTest extends CakeTestCase {
 
 		$result = $firecake->sentHeaders;
 
-		$this->assertPattern('/GROUP_START/', $result['X-Wf-1-1-1-1']);
-		$this->assertPattern('/ERROR/', $result['X-Wf-1-1-1-2']);
-		$this->assertPattern('/GROUP_END/', $result['X-Wf-1-1-1-4']);
+		$this->assertRegExp('/GROUP_START/', $result['X-Wf-1-1-1-1']);
+		$this->assertRegExp('/ERROR/', $result['X-Wf-1-1-1-2']);
+		$this->assertRegExp('/GROUP_END/', $result['X-Wf-1-1-1-5']);
 
 		Debugger::getInstance('Debugger');
-		Debugger::output();
+		Debugger::outputAs('html');
 	}
 
 }

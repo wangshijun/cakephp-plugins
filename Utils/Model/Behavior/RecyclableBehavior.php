@@ -182,7 +182,7 @@ class RecyclableBehavior extends ModelBehavior {
 	 * @param object $Model Model about to be deleted.
 	 * @param array $query Data used to execute this query, i.e. conditions, order, etc.
 	 * @return mixed Set to false to abort find operation, or return an array with data used to execute query
-	 * @access public
+	 * @todo php 5.4 Warning (2): Illegal string offset 'Group.deleted'
 	 */
 	public function beforeFind(Model $Model, $query) {
 		$settings = $this->settings[$Model->alias];
@@ -191,7 +191,7 @@ class RecyclableBehavior extends ModelBehavior {
 			&& $Model->hasField($settings['flag'])
 			&& !isset($query['conditions'][$Model->alias . '.' . $settings['flag']])
 		) {
-			$query['conditions'][$Model->alias . '.' . $settings['flag']] = 0;
+			@$query['conditions'][$Model->alias . '.' . $settings['flag']] = 0;
 		}
 
 		return $query;

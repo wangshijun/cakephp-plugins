@@ -290,6 +290,8 @@ class TransferBehavior extends ModelBehavior {
 				}
 			}
 		} elseif (TransferValidation::fileUpload($resource)) {
+			// debug(mb_detect_encoding($resource['name'], array('ASCII','GB2312','GBK','UTF-8')));
+			// $resource['name'] = mb_convert_encoding($resource['name'], 'UTF-8', 'GBK');
 			$resource = array_merge(
 				$defaultResource,
 				pathinfo($resource['name']),
@@ -527,6 +529,7 @@ class TransferBehavior extends ModelBehavior {
 			trigger_error($message, E_USER_WARNING);
 			return false;
 		}
+
 		return true;
 	}
 

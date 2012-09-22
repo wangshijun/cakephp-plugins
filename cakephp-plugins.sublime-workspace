@@ -4,6 +4,182 @@
 		"selected_items":
 		[
 			[
+				"ar",
+				"arguments"
+			],
+			[
+				"func_get",
+				"func_get_args"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"Ar",
+				"ArticleCategory"
+			],
+			[
+				"lay",
+				"layout"
+			],
+			[
+				"result",
+				"results"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"marg",
+				"margin-right"
+			],
+			[
+				"min",
+				"minwidth"
+			],
+			[
+				"is_o",
+				"is_owner"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"endfo",
+				"endforeach"
+			],
+			[
+				"Buil",
+				"BuildingRoom"
+			],
+			[
+				"border-c",
+				"border-color"
+			],
+			[
+				"floo",
+				"floor"
+			],
+			[
+				"buil",
+				"building"
+			],
+			[
+				"php",
+				"php"
+			],
+			[
+				"bl",
+				"block"
+			],
+			[
+				"under",
+				"underscore"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
+				"build",
+				"building_block_id"
+			],
+			[
+				"building_id",
+				"building_id"
+			],
+			[
+				"ajax",
+				"ajax	Google AJAX Libraries: Dojo"
+			],
+			[
+				"building",
+				"building_id"
+			],
+			[
+				"Building",
+				"buildingBlock"
+			],
+			[
+				"is",
+				"isAjax"
+			],
+			[
+				"before",
+				"beforeRender"
+			],
+			[
+				"Bui",
+				"BuildingBlock"
+			],
+			[
+				"Build",
+				"Building"
+			],
+			[
+				"int",
+				"intval"
+			],
+			[
+				"res",
+				"results"
+			],
+			[
+				"afterF",
+				"afterFind"
+			],
+			[
+				"ro",
+				"room_count"
+			],
+			[
+				"create",
+				"create"
+			],
+			[
+				"floor",
+				"floor_count"
+			],
+			[
+				"build_",
+				"building_block_id"
+			],
+			[
+				"crete",
+				"created"
+			],
+			[
+				"User",
+				"UserProfile"
+			],
+			[
+				"inse",
+				"insertAfter"
+			],
+			[
+				"inser",
+				"insertBefore"
+			],
+			[
+				"print_",
+				"print_array"
+			],
+			[
+				"exp",
+				"explode"
+			],
+			[
+				"quick",
+				"quicksort"
+			],
+			[
 				"pre",
 				"previous"
 			],
@@ -83,32 +259,132 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "Media/Model/Attachment.php",
+			"settings":
+			{
+				"buffer_size": 5020,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Media/Model/Behavior/TransferBehavior.php",
+			"settings":
+			{
+				"buffer_size": 27106,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Media/Lib/TransferValidation.php",
+			"settings":
+			{
+				"buffer_size": 2643,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Media/Lib/MediaValidation.php",
+			"settings":
+			{
+				"buffer_size": 9060,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n/**\n * Meta Behavior File\n *\n * Copyright (c) 2007-2011 David Persson\n *\n * Distributed under the terms of the MIT License.\n * Redistributions of files must retain the above copyright notice.\n *\n * PHP version 5\n * CakePHP version 1.3\n *\n * @package    media\n * @subpackage media.models.behaviors\n * @copyright  2007-2011 David Persson <davidpersson@gmx.de>\n * @license    http://www.opensource.org/licenses/mit-license.php The MIT License\n * @link       http://github.com/davidpersson/media\n */\n\nrequire_once 'Mime/Type.php';\nrequire_once 'Media/Info.php';\n\n/**\n * Coupler Behavior Class\n *\n * If you set metadataLevel to a value greater then zero, youâll get additional\n * metadata on each consecutive find operation.\n *\n * To manually get metadata or generate versions of a certain file just call the\n * metadata or make method on the model which the behavior is attached to. This\n * even works if you donât use the above table schema.\n *\n * {{{\n *      $result = $this->Document->metadata('/tmp/cern.jpg', 2);\n * }}}\n *\n * @package    media\n * @subpackage media.models.behaviors\n */\nclass MetaBehavior extends ModelBehavior {\n\n/**\n * Settings keyed by model alias\n *\n * @var array\n */\n	public $settings = array();\n\n/**\n * Default settings\n *\n * metadataLevel\n *  0 - (disabled) No retrieval of additional metadata\n *  1 - (basic) Adds `mime_type` and `size` fields\n *  2 - (detailed) Queries an `Media_Info` object for all available fields\n *\n * @var array\n */\n	protected $_defaultSettings = array(\n		'level' => 1\n	);\n\n/**\n * Holds cached metadata keyed by model alias\n *\n * @var array\n * @access private\n */\n	protected $__cached = array();\n\n/**\n * Setup behavior settings and cached metadata for the current model\n *\n * @param Model $Model\n * @param array $settings See defaultSettings for configuration options\n * @return void\n */\n	public function setup(Model $Model, $settings = array()) {\n		$this->settings[$Model->alias] = array_merge($this->_defaultSettings, (array)$settings);\n		$this->__cached[$Model->alias] = Cache::read('media_metadata_' . $Model->alias);\n	}\n\n/**\n * Write cached data on a per model basis\n *\n * @return void\n */\n	public function __destruct() {\n		foreach ($this->__cached as $alias => $data) {\n			if ($data) {\n				Cache::write('media_metadata_' . $alias, $data);\n			}\n		}\n	}\n\n/**\n * Callback\n *\n * Adds metadata to be stored in table if a record is about to be created.\n *\n * @param Model $Model\n * @return boolean\n */\n	public function beforeSave(Model $Model) {\n		if ($Model->exists() || !isset($Model->data[$Model->alias]['file'])) {\n			return true;\n		}\n		extract($this->settings[$Model->alias]);\n\n		$Model->data[$Model->alias] += $this->metadata(\n			$Model, $Model->data[$Model->alias]['file'], $level\n		);\n		return true;\n	}\n\n/**\n * Callback\n *\n * Adds metadata of corresponding file to each result.\n *\n * @param Model $Model\n * @param array $results\n * @param boolean $primary\n * @return array\n */\n	public function afterFind(Model $Model, $results, $primary = false) {\n		if (empty($results)) {\n			return $results;\n		}\n		extract($this->settings[$Model->alias]);\n\n		foreach ($results as $key => &$result) {\n			if (!isset($result[$Model->alias]['file'])) {\n				continue;\n			}\n			$metadata = $this->metadata($Model, $result[$Model->alias]['file'], $level);\n\n			if ($metadata) {\n				$result[$Model->alias] = array_merge($result[$Model->alias], $metadata);\n			}\n		}\n		return $results;\n	}\n\n/**\n * Retrieve (cached) metadata of a file\n *\n * @param Model $Model\n * @param string $file An absolute path to a file\n * @param integer $level level of amount of info to add, `0` disable, `1` for basic, `2` for detailed info\n * @return mixed Array with results or false if file is not readable\n */\n	public function metadata(Model $Model, $file, $level = 1) {\n		if ($level < 1) {\n			return array();\n		}\n		extract($this->settings[$Model->alias]);\n		$File = new File($file);\n\n		if (!$File->readable()) {\n			return false;\n		}\n		$checksum = $File->md5(true);\n\n		if (isset($this->__cached[$Model->alias][$checksum])) {\n			$data = $this->__cached[$Model->alias][$checksum];\n		}\n\n		if ($level > 0 && !isset($data[1])) {\n			$data[1] = array(\n				'size'      => $File->size(),\n				'mime_type' => Mime_Type::guessType($File->pwd()),\n				'checksum'  => $checksum,\n			);\n		}\n		if ($level > 1 && !isset($data[2])) {\n			$data[2] = array();\n\n			try {\n				$Info = Media_Info::factory(array('source' => $File->pwd()));\n\n				foreach ($Info->all() as $key => $value) {\n					$data[2][Inflector::underscore($key)] = $value;\n				}\n			} catch (Exception $E) {}\n		}\n\n		for ($i = $level, $result = array(); $i > 0; $i--) {\n			$result = array_merge($result, $data[$i]);\n		}\n		$this->__cached[$Model->alias][$checksum] = $data;\n		return $result;\n	}\n}\n\n",
+			"file": "Media/Model/Behavior/MetaBehavior.php",
+			"file_size": 4754,
+			"file_write_time": 129921696972150137,
+			"settings":
+			{
+				"buffer_size": 4754,
+				"line_ending": "Unix",
+				"scratch": true
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 60.0,
+		"height": 375.0,
 		"selected_items":
 		[
+			[
+				"todo",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"save",
+				"File: Save All"
+			],
 			[
 				"install",
 				"Package Control: Install Package"
 			],
 			[
-				"remove",
-				"Package Control: Remove Package"
+				"git status",
+				"Git: Status"
+			],
+			[
+				"settings",
+				"Preferences: Settings - User"
 			],
 			[
 				"list",
 				"Package Control: List Packages"
 			],
 			[
-				"Install",
-				"Package Control: Install Package"
+				"git co",
+				"Git: Commit"
 			],
 			[
 				"git add",
-				"Git: Add..."
+				"Git: Add Current File"
+			],
+			[
+				"tod",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"create ",
+				"Gist: Create Public Gist"
+			],
+			[
+				"gist",
+				"Gist: Create Public Gist"
+			],
+			[
+				"li",
+				"Package Control: List Packages"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ter",
+				"Preferences: Terminal Key Bindings – Default"
+			],
+			[
+				"termi",
+				"Preferences: Terminal Key Bindings – User"
+			],
+			[
+				"to",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"list ",
+				"Package Control: List Packages"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
 			],
 			[
 				"git",
@@ -155,10 +431,6 @@
 				"Project: Save As"
 			],
 			[
-				"todo",
-				"Show TODOs: Open files only"
-			],
-			[
 				"instal",
 				"Package Control: Install Package"
 			],
@@ -183,8 +455,8 @@
 				"Show TODOs: Project and open files"
 			],
 			[
-				"insta",
-				"Package Control: Install Package"
+				"remove",
+				"Package Control: Remove Package"
 			],
 			[
 				"git stat",
@@ -268,110 +540,138 @@
 	},
 	"file_history":
 	[
-		"/E/Documents/GitHub/easycms/plugins/cakephp-plugins",
-		"/E/Documents/GitHub/easycms/plugins/build.py",
-		"/E/Documents/GitHub/license/app/Config/database.php",
-		"/E/Documents/GitHub/license/app/Config/core.php",
-		"/E/Documents/GitHub/license/app/webroot/index.php",
-		"/E/Documents/GitHub/easycms/index.php",
-		"/C/Windows/System32/drivers/etc/hosts",
-		"/D/xampp/apache/conf/extra/httpd-vhosts.conf",
-		"/E/Documents/GitHub/license/app/webroot/test.php",
-		"/D/xampp/apache/logs/error.log",
-		"/D/xampp/apache/logs/shijun-access.log",
-		"/D/xampp/apache/logs/license-access.log",
-		"/E/Documents/GitHub/license/app/index.php",
-		"/D/htdocs/wiki/LocalSettings.php",
-		"/D/xampp/apache/conf/httpd.conf",
-		"/D/htdocs/wiki/includes/DefaultSettings.php",
-		"/D/htdocs/wiki/mw-config/index.php",
-		"/D/htdocs/wiki/includes/WebStart.php",
-		"/D/htdocs/wiki/index.php",
-		"/D/htdocs/wiki/includes/Setup.php",
-		"/D/htdocs/wiki/config/index.php5",
-		"/D/htdocs/wiki/mw-config/index.php5",
-		"/D/htdocs/wiki/config/index.php",
-		"/E/Documents/GitHub/license/.gitignore",
-		"/E/Downloads/51CTO下载-精仿19楼社区整站/说明.txt",
-		"/E/Documents/GitHub/license/app/Console/cake.php",
-		"/E/Documents/GitHub/license/app/Config/acl.ini.php",
-		"/E/Downloads/51CTO下载-精仿19楼社区整站/免费精仿19楼社区整站.txt",
-		"/E/Downloads/51CTO下载-精仿19楼社区整站/10元下载VIP源码.txt",
-		"/C/Users/tomato/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-		"/C/Users/tomato/AppData/Roaming/Sublime Text 2/Settings/Session.sublime_session",
-		"/D/havardcs50/havardcs50.sublime-project",
-		"/Z/www/www-dev/www/protected/modules/default/controllers/SearchController.php",
-		"/Z/www/www-dev/www/views/default/search/so.tpl",
-		"/Z/www/www-dev/www/views/default/layout/head.tpl",
-		"/Z/www/www-dev/www/public/css/style.css",
-		"/Z/www/www-dev/www/views/default/index/index.tpl",
-		"/Z/www/www-dev/www/protected/config/thriftConf.php",
-		"/D/xampp/htdocs/backbone-relational-tutorial/static/js/forum.js",
-		"/D/xampp/htdocs/backbone-relational-tutorial/static/index.html",
-		"/D/xampp/htdocs/backbone-relational-tutorial/models.js",
-		"/Z/www/mobile_image_search/mobileimage/views/default/layout/zencoding.css",
-		"/Z/www/mobile_image_search/mobileimage/views/default/layout/zencoding.tpl",
-		"/D/xampp/htdocs/license-manager/index.php",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/User/CSS.sublime-settings",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Alignment/Default (Windows).sublime-keymap",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/PHPUnit/PHPUnit.sublime-settings",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/SublimeCodeIntel/Default (Windows).sublime-keymap",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/JsFormat/Default (Windows).sublime-keymap",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/ZenCoding/Default.sublime-keymap",
-		"/Z/www/mobile_image_search/mobileimage/views/default/layout/home.tpl",
-		"/Z/www/mobile_image_search/mobileimage/mobileimage.sublime-project",
-		"/Z/www/mobile_image_search/mobileimage/views/default/help/index.tpl",
-		"/D/xampp/htdocs/iscroll/src/iscroll.js",
-		"/D/xampp/htdocs/iscroll/examples/hammerjs/index.html",
-		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/TestController.php",
-		"/D/Replace+Sublime+Text+2+Icon.alfredextension",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/SublimeCodeIntel/Base File.sublime-settings",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Alignment/Base File.sublime-settings",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Terminal/Base File.sublime-settings",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
-		"/Z/www/mobile_image_search/mobileimage/public/css/style.css",
-		"/Z/www/mobile_image_search/mobileimage/public/javascript/lib/zepto.js",
-		"/D/xampp/htdocs/iscroll/examples/pull-to-refresh/index.html",
-		"/D/xampp/htdocs/iscroll/examples/simple/index.html",
-		"/D/xampp/htdocs/iscroll/examples/horizontal-scroll/index.html",
-		"/D/xampp/htdocs/iscroll/examples/carousel/index.html",
-		"/D/xampp/htdocs/iscroll/examples/check-dom-changes/index.html",
-		"/C/Users/shijun/AppData/Roaming/Sublime Text 2/Packages/Language - English/en_US.dic",
-		"/D/xampp/htdocs/iscroll/examples/ipad/index.html",
-		"/Z/www/mobile_web_search/views/default/index/index.tpl",
-		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/IndexController.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/config/main.php",
-		"/D/xampp/htdocs/iscroll/src/ender.js",
-		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/HelpController.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/AdviceController.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/modules/default/controllers/SearchController.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/lib/services/ImageService.php",
-		"/Z/www/mobile_image_search/mobileimage/views/default/index/index.tpl",
-		"/Z/www/mobile_image_search/mobileimage/views/default/advice/index.tpl",
-		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/ImageUtil.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/ImageSearchClass.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/ImageController.php",
-		"/Z/www/image_search/protected/modules/wap/controllers/IndexController.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/lib/services/ImageAdviceService.php",
-		"/Z/www/mobile_image_search/mobileimage/protected/lib/classes/Controller.php",
-		"/Z/www/mobile_image_search/mobileimage/views/default/layout/main.tpl",
-		"/Z/www/image_search/protected/lib/classes/BaseAdviceController.php",
-		"/Z/www/image_search/views/default/advice/advice.tpl",
-		"/Z/www/image_search/build.sh",
-		"/Z/www/image_search/protected/config/console.php",
-		"/Z/www/image_search/protected/config/adapter.php",
-		"/Z/www/mobile_image_search/mobileimage/public/css/reset.css",
-		"/Z/www/mobile_web_search/views/default/layout/main.tpl",
-		"/Z/www/mobile_image_search/mobileimage/views/default/layout/header.tpl",
-		"/C/Program Files/Sublime Text 2/sublime_text - 副本.exe",
-		"/C/Program Files/Sublime Text 2/sublime_text_backup.exe",
-		"/Z/www/mobile_image_search/mobileimage/public/images/background.png"
+		"/E/Documents/GitHub/plugins/Media/Config/bootstrap.php",
+		"/E/Documents/GitHub/plugins/cakephp-plugins.sublime-project",
+		"/E/Documents/GitHub/plugins/Media/Model/Behavior/CouplerBehavior.php",
+		"/E/Documents/GitHub/easycms/app/View/Tenants/admin_view.ctp",
+		"/E/Documents/GitHub/easycms/app/Controller/GroupsController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/CategoriesController.php",
+		"/E/Documents/GitHub/easycms/app/View/Categories/admin_index.ctp",
+		"/E/Documents/GitHub/easycms/app/Controller/AuthsController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/UsersController.php",
+		"/E/Documents/GitHub/easycms/app/View/Categories/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Categories/admin_edit.ctp",
+		"/E/Documents/GitHub/plugins/Media/Controller/AttachmentsController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/AppController.php",
+		"/E/Documents/GitHub/easycms/app/View/Categories/admin_recycle_bin.ctp",
+		"/E/Documents/GitHub/easycms/app/Locale/packages.php",
+		"/E/Documents/GitHub/easycms/app/webroot/css/app.admin.css",
+		"/E/Documents/GitHub/easycms/app/View/BuildingRooms/admin_view.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingBlocks/admin_view.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingResidents/admin_view.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Layouts/default.ctp",
+		"/E/Documents/GitHub/cakephp/lib/Cake/Controller/Controller.php",
+		"/E/Documents/GitHub/easycms/app/webroot/css/app.login.css",
+		"/E/Documents/GitHub/easycms/app/View/Layouts/login.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Users/admin_login.ctp",
+		"/E/Documents/GitHub/easycms/app/Model/Category.php",
+		"/E/Documents/GitHub/easycms/app/Controller/PostsController.php",
+		"/E/Documents/GitHub/easycms/app/Config/routes.php",
+		"/E/Documents/GitHub/easycms/app/Controller/ArticlesController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/ArticleCategoriesController.php",
+		"/E/Documents/GitHub/easycms/app/Model/DownloadCategory.php",
+		"/E/Documents/GitHub/easycms/app/Model/EthnicGroup.php",
+		"/E/Documents/GitHub/easycms/app/Model/ArticleCategory.php",
+		"/E/Documents/GitHub/plugins/Utils/Model/Behavior/InheritableBehavior.php",
+		"/E/Documents/GitHub/cakephp/lib/Cake/Model/Behavior/TreeBehavior.php",
+		"/E/Documents/GitHub/easycms/app/Config/database.php",
+		"/E/Documents/GitHub/easycms/app/View/BuildingResidents/admin_index.ctp",
+		"/E/Documents/GitHub/easycms/app/Config/clusters/develop/database.php",
+		"/E/Documents/GitHub/easycms/app/Controller/DownloadCategoriesController.php",
+		"/E/Documents/GitHub/easycms/app/View/Layouts/admin.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Pages/home.ctp",
+		"/E/Documents/GitHub/easycms/app/webroot/css/app.default.css",
+		"/E/Documents/GitHub/easycms/app/webroot/css/app.mobile.css",
+		"/E/Documents/GitHub/easycms/app/webroot/css/bootstrap-2.0.2/bootstrap.css",
+		"/E/Documents/GitHub/easycms/app/webroot/css/bootstrap-2.1.1/bootstrap.css",
+		"/E/Documents/GitHub/easycms/app/webroot/css/bootstrap-2.1.1/bootstrap.min.css",
+		"/E/Documents/GitHub/easycms/app/webroot/css/bootstrap-2.0.2/bootstrap.cerulean.min.css",
+		"/E/Documents/GitHub/easycms/app/Controller/EthnicGroupsController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/BuildingsController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/BuildingBlocksController.php",
+		"/E/Documents/GitHub/easycms/app/View/BuildingResidents/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingBlocks/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingResidents/admin_recycle_bin.ctp",
+		"/E/Documents/GitHub/easycms/app/Controller/BuildingResidentsController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/BuildingRoomsController.php",
+		"/E/Documents/GitHub/easycms/app/View/Buildings/admin_view.ctp",
+		"/E/Documents/GitHub/easycms/app/Model/BuildingRoom.php",
+		"/E/Documents/GitHub/easycms/app/View/Elements/building_block.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Elements/building_legend.ctp",
+		"/E/Documents/GitHub/easycms/app/Model/BuildingResident.php",
+		"/E/Documents/GitHub/easycms/app/Config/Schema/schema_local.sql",
+		"/E/Documents/GitHub/easycms/app/Model/BuildingBlock.php",
+		"/E/Documents/GitHub/easycms/app/View/BuildingBlocks/admin_recycle_bin.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingBlocks/admin_index.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Buildings/admin_recycle_bin.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingBlocks/admin_ajax_index.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingResidents/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/Console/Templates/bootstrap/actions/controller_actions.ctp",
+		"/E/Documents/GitHub/easycms/app/Console/Templates/bootstrap/views/view.ctp",
+		"/E/Documents/GitHub/easycms/app/Console/Templates/bootstrap/views/recycle_bin.ctp",
+		"/E/Documents/GitHub/easycms/app/Console/Templates/bootstrap/views/index.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingResidents/admin_view2.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingResidents/view.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingRooms/admin_ajax_index.ctp",
+		"/D/xampp/phpMyAdmin/libraries/config.default.php",
+		"/D/xampp/phpMyAdmin/libraries/common.inc.php",
+		"/D/xampp/phpMyAdmin/config.inc.php",
+		"/E/Documents/GitHub/easycms/app/View/Elements/menu.ctp",
+		"/E/Documents/GitHub/easycms/app/Config/enums.php",
+		"/E/Documents/GitHub/easycms/app/Config/core.php",
+		"/E/Documents/GitHub/easycms/app/Controller/DownloadsController.php",
+		"/E/Documents/GitHub/easycms/app/Config/media.user.php",
+		"/E/Documents/GitHub/easycms/app/Config/clusters.php",
+		"/E/Documents/GitHub/easycms/app/View/Users/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Users/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Users/admin_profile.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Tenants/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Tenants/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Posts/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Posts/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/MiscPosts/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Links/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Links/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Groups/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Groups/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingRooms/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Configs/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Configs/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Downloads/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Downloads/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingRooms/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Buildings/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Buildings/admin_edit.ctp",
+		"/E/Documents/GitHub/easycms/app/View/BuildingBlocks/admin_add.ctp",
+		"/E/Documents/GitHub/easycms/app/webroot/js/app.default.js",
+		"/E/Documents/GitHub/easycms/app/webroot/js/app.admin.js",
+		"/E/Documents/GitHub/easycms/app/View/Buildings/admin_index.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Layouts/ajax.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Layouts/flash.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Layouts/mobile.ctp",
+		"/E/Documents/GitHub/easycms/app/Config/Schema/ethnic_group.php",
+		"/E/Documents/GitHub/easycms/app/View/Links/admin_recycle_bin.ctp",
+		"/E/Documents/GitHub/easycms/app/View/Posts/admin_recycle_bin.ctp",
+		"/D/xampp/mysql/data/mysql_error.log",
+		"/E/Documents/GitHub/easycms/app/Controller/ToolkitController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/ExercisesController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/TutorialsController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/ChaptersController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/TerminologiesController.php",
+		"/E/Documents/GitHub/easycms/app/Controller/LinksController.php",
+		"/E/Documents/GitHub/easycms/app/Config/Schema/schema.sql",
+		"/E/Documents/GitHub/easycms/app/Console/cake.php",
+		"/E/Downloads/easy_projects.sql",
+		"/E/Documents/GitHub/easycms/app/Config/Schema/easy_projects.sql",
+		"/E/Documents/GitHub/easycms/app/Model/User.php",
+		"/E/Documents/GitHub/easycms/app/View/Users/admin_avatar.ctp",
+		"/E/Downloads/红星社区网站/Inc/md5.asp",
+		"/E/Downloads/红星社区网站/Admin_ChkLogin.asp",
+		"/E/Downloads/红星社区网站/Admin_Login.asp"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 41.0
 	},
 	"find_in_files":
 	{
@@ -383,13 +683,55 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
-			"license.shijun.com",
-			"Directory",
-			"project",
-			"z/",
+			"_destination",
+			"viewVars",
+			"category",
+			"../img/",
+			"Telex",
+			"font-fa",
+			"fond-family",
+			"</h3>",
+			"<h3>",
+			"url",
+			"simpleCategory",
+			"showParent",
+			"3",
+			"margin",
+			"i",
+			"$buildingResident['BuildingResident']",
+			"$category[$inflector['camelize']]",
+			"data",
+			"named",
+			"$this->",
+			"building_block_id",
+			" ',",
+			"\"",
+			"$",
+			"^",
+			"．",
+			"Form",
+			"SessionKey",
+			" * ",
+			"&$Model",
+			"&$",
+			"cleanHtml",
+			"&$",
+			"error_Report",
+			"E:\\",
+			"\\xampp\\",
+			"Debugger",
+			"$_method",
+			"$method",
+			"pkg",
+			"getMenuId",
+			"_method",
+			":+",
+			"CakePHP",
+			"font",
+			", &$data",
 			"id=\"news\"",
 			"section",
 			"footer",
@@ -465,6 +807,18 @@
 		"regex": false,
 		"replace_history":
 		[
+			"../../img/",
+			"Microsoft Yahei",
+			"$enums['",
+			"',",
+			"'",
+			"\",",
+			"\",\\n",
+			"\"",
+			"\" => \"",
+			"",
+			"D:\\",
+			"E:\\xampp\\",
 			"",
 			"$this->service",
 			"protected function _get",
@@ -490,17 +844,594 @@
 			"try {",
 			"if ("
 		],
-		"reverse": true,
+		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Media/Model/Attachment.php",
+					"settings":
+					{
+						"buffer_size": 5020,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4924,
+								4886
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"origin_encoding": "ASCII",
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2940.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Media/Model/Behavior/TransferBehavior.php",
+					"settings":
+					{
+						"buffer_size": 27106,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8727,
+								8721
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"origin_encoding": "UTF-8",
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4624.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Media/Lib/TransferValidation.php",
+					"settings":
+					{
+						"buffer_size": 2643,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2191,
+								2191
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"origin_encoding": "ASCII",
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1440.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Media/Lib/MediaValidation.php",
+					"settings":
+					{
+						"buffer_size": 9060,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"origin_encoding": "ASCII",
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 6120.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Media/Model/Behavior/MetaBehavior.php",
+					"settings":
+					{
+						"buffer_size": 4754,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4291,
+								4291
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"in_converting": true,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"origin_encoding": "ISO-8859-2",
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2340.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -550,6 +1481,18 @@
 		"selected_items":
 		[
 			[
+				"default",
+				"app/View/Layouts/default.ctp"
+			],
+			[
+				"core.php",
+				"app/Config/core.php"
+			],
+			[
+				"admin_index.ctp",
+				"app/View/Users/admin_index.ctp"
+			],
+			[
 				"images",
 				"protected/lib/services/ImageService.php"
 			],
@@ -579,7 +1522,7 @@
 		[
 			[
 				"",
-				"/Z/www/www-dev/www/mobilewebsearch.sublime-project"
+				"/D/htdocs/my-php-mysql/myphp.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -588,6 +1531,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 227.0,
+	"side_bar_width": 234.0,
 	"status_bar_visible": true
 }

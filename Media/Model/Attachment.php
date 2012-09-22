@@ -37,7 +37,7 @@ class Attachment extends MediaAppModel {
 	 * @access public
 	 */
 	public $actsAs = array(
-		'Isolated', 'Recyclable', 'Containable',
+		'Utils.Isolated', 'Utils.Recyclable', 'Containable',
 		'Media.Transfer' => array(
 			'trustClient' => false,
 			'transferDirectory' => MEDIA_TRANSFER,
@@ -78,26 +78,24 @@ class Attachment extends MediaAppModel {
 	public $validate = array(
 		'file' => array(
 			'size' => array('rule' => array('checkSize', '32M')),
-			//'pixels' => array('rule' => array('checkPixels', '1600x1600')),
-			'extension' => array('rule' => array('checkExtension', false, array(
-				'jpg', 'jpeg', 'png', 'tif', 'tiff', 'gif', 'zip',
-				'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'tmp',
-			))),
-			/*
-			'mimeType' => array('rule' => array('checkMimeType', false, array(
-				'image/jpeg', 'image/png',
-				'image/tiff', 'image/gif',
-				'application/pdf',
-				'application/msword',
-				'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-				'application/vnd.ms-excel',
-				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-				'application/vnd.ms-powerpoint',
-				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-				'application/zip',
-				'application/octet-stream',
-			))),
-			*/
+			// 'pixels' => array('rule' => array('checkPixels', '1600x1600')),
+			// 'extension' => array('rule' => array('checkExtension', false, array(
+			// 	'jpg', 'jpeg', 'png', 'tif', 'tiff', 'gif', 'zip',
+			// 	'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'tmp',
+			// ))),
+			// 'mimeType' => array('rule' => array('checkMimeType', false, array(
+			// 	'image/jpeg', 'image/png',
+			// 	'image/tiff', 'image/gif',
+			// 	'application/pdf',
+			// 	'application/msword',
+			// 	'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			// 	'application/vnd.ms-excel',
+			// 	'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			// 	'application/vnd.ms-powerpoint',
+			// 	'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+			// 	'application/zip',
+			// 	'application/octet-stream',
+			// ))),
 		),
 		'alternative' => array(
 			'rule' => 'checkRepresent',
@@ -164,9 +162,11 @@ class Attachment extends MediaAppModel {
 			$short = substr($name, 0, 3);
 		}
 
+		$slug = strtolower(Inflector::slug($filename));
+
 		$path  = $short . DS;
 		//$path .= AuthComponent::user('id') . DS;
-		$path .= strtolower(Inflector::slug($filename));
+		$path .= empty($slug) ? date('YmdHis') : $slug;
 		$path .= !empty($extension) ? '.' . strtolower($extension) : null;
 
 		return $path;

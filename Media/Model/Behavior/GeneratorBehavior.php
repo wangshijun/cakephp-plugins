@@ -24,7 +24,7 @@ require_once 'Mime/Type.php';
  *
  * The generation of files is handled by the make method. It is either manually
  * triggered or when a to-be-saved record contains a file field with an absolute
- * path to a file. The model the behavior is attached to doesn’t necessarily need
+ * path to a file. The model the behavior is attached to doesnĂ˘ÂÂt necessarily need
  * to be bound to a table.
  *
  * To connect TransferBehavior and GeneratorBehavior with each other it is important

@@ -23,7 +23,7 @@ App::uses('File', 'Utility');
  * Coupler Behavior Class
  *
  * Your model needs to be bound to a table. The table must have at least the
- * dirname, basename fields to make that work. Below you’ll find some example
+ * dirname, basename fields to make that work. Below youÄËĂÂĂÂll find some example
  * SQL to alter an existent table.
  *
  * {{{
@@ -35,7 +35,7 @@ App::uses('File', 'Utility');
  * If you now save a record with a field named file which must contain an absolute
  * path to a file, is the path made relative (using the base path provided) and
  * then split into the dirname and basename parts which end up in the
- * corresponding fields. This way you won’t have any absolute paths in your
+ * corresponding fields. This way you wonÄËĂÂĂÂt have any absolute paths in your
  * table which is more flexible (e.g. when relocating the folder with the media
  * files).
  *

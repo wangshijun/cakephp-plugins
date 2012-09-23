@@ -23,13 +23,19 @@ if ($target) {
 	echo $this->BootstrapForm->create(null, array('url' => array_merge($_url, array('comment' => $comment, '#' => 'comment' . $comment)), 'class' => 'form form-vertical'));
 }
 
-echo $this->BootstrapForm->input('Comment.title', array('validate' => 'required:true', 'class' => 'span6'));
+echo $this->BootstrapForm->input('Comment.title', array(
+	'label' => __d('comments', 'Comment Title'),
+	'validate' => 'required:true',
+	'class' => 'span6',
+));
+
 echo $this->BootstrapForm->input('Comment.body', array(
+	'label' => __d('comments', 'Comment Body'),
 	'validate' => 'required:true',
 	'class' => 'span6',
 	'error' => array(
 		'body_required' => __d('comments', 'This field cannot be left blank'),
-		'body_markup' => sprintf(__d('comments', 'You can use only headings from %s to %s'), 4, 7)
+		'body_markup' => sprintf(__d('comments', 'You can use only headings from %s to %s'), 10, 20)
 	),
 ));
 

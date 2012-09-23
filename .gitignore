@@ -1,0 +1,4 @@
+tmp/*
+!empty
+*.sublime-*
+Thumbs.db

@@ -24,8 +24,14 @@ if ($target) {
 	echo $this->BootstrapForm->create($modelName, array('url' => array_merge($_url, array('comment' => $comment, '#' => 'comment' . $comment)), 'class' => 'form form-vertical'));
 }
 
-echo $this->BootstrapForm->input('Comment.title', array('validate' => 'required:true', 'class' => 'span6'));
+echo $this->BootstrapForm->input('Comment.title', array(
+	'label' => __d('comments', 'Comment Title'),
+	'validate' => 'required:true',
+	'class' => 'span6',
+));
+
 echo $this->BootstrapForm->input('Comment.body', array(
+	'label' => __d('comments', 'Comment Body'),
 	'validate' => 'required:true',
 	'class' => 'span6',
 	'error' => array(

@@ -40,7 +40,7 @@ class IsolatedBehavior extends ModelBehavior {
 			$this->settings[$Model->alias] = $this->defaults;
 		}
 		$this->settings[$Model->alias] = array_merge($this->settings[$Model->alias], $settings);
-		$this->isolator = AuthComponent::user($this->settings[$Model->alias]['isolator']);
+		$this->isolator = $Model->user($this->settings[$Model->alias]['isolator']);
 	}
 
 	/**
@@ -109,10 +109,10 @@ class IsolatedBehavior extends ModelBehavior {
 	public function beforeSave(Model $Model) {
 		$settings = $this->settings[$Model->alias];
 
-		if ($this->isolator && $Model->hasField('tenant_id')
-			&& !isset($Model->data[$Model->alias]['tenant_id'])
+		if ($this->isolator && $Model->hasField($settings['isolator'])
+			&& !isset($Model->data[$Model->alias][$settings['isolator']])
 		) {
-			$Model->data[$Model->alias]['tenant_id'] = $this->isolator;
+			$Model->data[$Model->alias][$settings['isolator']] = $this->isolator;
 		}
 
 		return true;

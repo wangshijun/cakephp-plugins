@@ -7,3 +7,6 @@
 [submodule "Migrations"]
 	path = Migrations
 	url = git://github.com/CakeDC/migrations.git
+[submodule "Utils"]
+	path = Utils
+	url = git://github.com/wangshijun2010/cakephp-utils.git

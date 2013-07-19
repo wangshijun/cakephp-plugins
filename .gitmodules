@@ -21,4 +21,4 @@
 	url = git@github.com:fegeeks/cakephp-oauth.git
 [submodule "Tags"]
 	path = Tags
-	url = git@github.com:CakeDC/tags.git
+	url = git@github.com:fegeeks/cakephp-tags.git

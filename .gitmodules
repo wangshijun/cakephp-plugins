@@ -22,3 +22,6 @@
 [submodule "Tags"]
 	path = Tags
 	url = git://github.com/fegeeks/cakephp-tags.git
+[submodule "SimplePie"]
+	path = SimplePie
+	url = git@github.com:fegeeks/CakePHP-Simplepie-Plugin.git

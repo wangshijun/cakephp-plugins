@@ -24,4 +24,4 @@
 	url = git://github.com/fegeeks/cakephp-tags.git
 [submodule "SimplePie"]
 	path = SimplePie
-	url = git@github.com:fegeeks/CakePHP-Simplepie-Plugin.git
+	url = git@github.com:wangshijun2010/CakePHP-Simplepie-Plugin.git

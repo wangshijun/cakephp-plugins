@@ -17,6 +17,7 @@ class SimplepieComponent extends Component {
     private $cache;
 
     public function __construct() {
+        App::uses('SimplePie', 'SimplePie.Lib');
         $this->cache = CACHE . 'rss' . DS;
     }
 

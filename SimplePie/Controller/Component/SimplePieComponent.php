@@ -12,7 +12,7 @@
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
 
-class SimplepieComponent extends Component {
+class SimplePieComponent extends Component {
 
     private $cache;
 

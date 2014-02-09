@@ -44,7 +44,7 @@ class MetaBehavior extends ModelBehavior {
  *
  * @var array
  */
-	public $settings = array();
+    public $settings = array();
 
 /**
  * Default settings
@@ -56,9 +56,9 @@ class MetaBehavior extends ModelBehavior {
  *
  * @var array
  */
-	protected $_defaultSettings = array(
-		'level' => 1
-	);
+    protected $_defaultSettings = array(
+        'level' => 1
+    );
 
 /**
  * Holds cached metadata keyed by model alias
@@ -66,7 +66,7 @@ class MetaBehavior extends ModelBehavior {
  * @var array
  * @access private
  */
-	protected $__cached = array();
+    protected $__cached = array();
 
 /**
  * Setup behavior settings and cached metadata for the current model
@@ -75,23 +75,23 @@ class MetaBehavior extends ModelBehavior {
  * @param array $settings See defaultSettings for configuration options
  * @return void
  */
-	public function setup(Model $Model, $settings = array()) {
-		$this->settings[$Model->alias] = array_merge($this->_defaultSettings, (array)$settings);
-		$this->__cached[$Model->alias] = Cache::read('media_metadata_' . $Model->alias);
-	}
+    public function setup(Model $Model, $settings = array()) {
+        $this->settings[$Model->alias] = array_merge($this->_defaultSettings, (array)$settings);
+        $this->__cached[$Model->alias] = Cache::read('media_metadata_' . $Model->alias);
+    }
 
 /**
  * Write cached data on a per model basis
  *
  * @return void
  */
-	public function __destruct() {
-		foreach ($this->__cached as $alias => $data) {
-			if ($data) {
-				Cache::write('media_metadata_' . $alias, $data);
-			}
-		}
-	}
+    public function __destruct() {
+        foreach ($this->__cached as $alias => $data) {
+            if ($data) {
+                Cache::write('media_metadata_' . $alias, $data);
+            }
+        }
+    }
 
 /**
  * Callback
@@ -101,17 +101,17 @@ class MetaBehavior extends ModelBehavior {
  * @param Model $Model
  * @return boolean
  */
-	public function beforeSave(Model $Model) {
-		if ($Model->exists() || !isset($Model->data[$Model->alias]['file'])) {
-			return true;
-		}
-		extract($this->settings[$Model->alias]);
+    public function beforeSave(Model $Model, $options = array()) {
+        if ($Model->exists() || !isset($Model->data[$Model->alias]['file'])) {
+            return true;
+        }
+        extract($this->settings[$Model->alias]);
 
-		$Model->data[$Model->alias] += $this->metadata(
-			$Model, $Model->data[$Model->alias]['file'], $level
-		);
-		return true;
-	}
+        $Model->data[$Model->alias] += $this->metadata(
+            $Model, $Model->data[$Model->alias]['file'], $level
+        );
+        return true;
+    }
 
 /**
  * Callback
@@ -123,24 +123,24 @@ class MetaBehavior extends ModelBehavior {
  * @param boolean $primary
  * @return array
  */
-	public function afterFind(Model $Model, $results, $primary = false) {
-		if (empty($results)) {
-			return $results;
-		}
-		extract($this->settings[$Model->alias]);
+    public function afterFind(Model $Model, $results, $primary = false) {
+        if (empty($results)) {
+            return $results;
+        }
+        extract($this->settings[$Model->alias]);
 
-		foreach ($results as $key => &$result) {
-			if (!isset($result[$Model->alias]['file'])) {
-				continue;
-			}
-			$metadata = $this->metadata($Model, $result[$Model->alias]['file'], $level);
+        foreach ($results as $key => &$result) {
+            if (!isset($result[$Model->alias]['file'])) {
+                continue;
+            }
+            $metadata = $this->metadata($Model, $result[$Model->alias]['file'], $level);
 
-			if ($metadata) {
-				$result[$Model->alias] = array_merge($result[$Model->alias], $metadata);
-			}
-		}
-		return $results;
-	}
+            if ($metadata) {
+                $result[$Model->alias] = array_merge($result[$Model->alias], $metadata);
+            }
+        }
+        return $results;
+    }
 
 /**
  * Retrieve (cached) metadata of a file
@@ -150,46 +150,46 @@ class MetaBehavior extends ModelBehavior {
  * @param integer $level level of amount of info to add, `0` disable, `1` for basic, `2` for detailed info
  * @return mixed Array with results or false if file is not readable
  */
-	public function metadata(Model $Model, $file, $level = 1) {
-		if ($level < 1) {
-			return array();
-		}
-		extract($this->settings[$Model->alias]);
-		$File = new File($file);
+    public function metadata(Model $Model, $file, $level = 1) {
+        if ($level < 1) {
+            return array();
+        }
+        extract($this->settings[$Model->alias]);
+        $File = new File($file);
 
-		if (!$File->readable()) {
-			return false;
-		}
-		$checksum = $File->md5(true);
+        if (!$File->readable()) {
+            return false;
+        }
+        $checksum = $File->md5(true);
 
-		if (isset($this->__cached[$Model->alias][$checksum])) {
-			$data = $this->__cached[$Model->alias][$checksum];
-		}
+        if (isset($this->__cached[$Model->alias][$checksum])) {
+            $data = $this->__cached[$Model->alias][$checksum];
+        }
 
-		if ($level > 0 && !isset($data[1])) {
-			$data[1] = array(
-				'size'      => $File->size(),
-				'mime_type' => Mime_Type::guessType($File->pwd()),
-				'checksum'  => $checksum,
-			);
-		}
-		if ($level > 1 && !isset($data[2])) {
-			$data[2] = array();
+        if ($level > 0 && !isset($data[1])) {
+            $data[1] = array(
+                'size'      => $File->size(),
+                'mime_type' => Mime_Type::guessType($File->pwd()),
+                'checksum'  => $checksum,
+            );
+        }
+        if ($level > 1 && !isset($data[2])) {
+            $data[2] = array();
 
-			try {
-				$Info = Media_Info::factory(array('source' => $File->pwd()));
+            try {
+                $Info = Media_Info::factory(array('source' => $File->pwd()));
 
-				foreach ($Info->all() as $key => $value) {
-					$data[2][Inflector::underscore($key)] = $value;
-				}
-			} catch (Exception $E) {}
-		}
+                foreach ($Info->all() as $key => $value) {
+                    $data[2][Inflector::underscore($key)] = $value;
+                }
+            } catch (Exception $E) {}
+        }
 
-		for ($i = $level, $result = array(); $i > 0; $i--) {
-			$result = array_merge($result, $data[$i]);
-		}
-		$this->__cached[$Model->alias][$checksum] = $data;
-		return $result;
-	}
+        for ($i = $level, $result = array(); $i > 0; $i--) {
+            $result = array_merge($result, $data[$i]);
+        }
+        $this->__cached[$Model->alias][$checksum] = $data;
+        return $result;
+    }
 }
 

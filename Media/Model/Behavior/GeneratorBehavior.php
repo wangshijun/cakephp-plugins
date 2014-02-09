@@ -50,7 +50,7 @@ class GeneratorBehavior extends ModelBehavior {
  *
  * @protected array
  */
-	public $settings = array();
+    public $settings = array();
 
 /**
  * Default settings
@@ -82,15 +82,15 @@ class GeneratorBehavior extends ModelBehavior {
  *
  * @var array
  */
-	protected $_defaultSettings = array(
-		'baseDirectory'       => MEDIA_TRANSFER,
-		'filterDirectory'     => MEDIA_FILTER,
-		'createDirectory'     => true,
-		'createDirectoryMode' => 0755,
-		'mode'                => 0644,
-		'overwrite'           => false,
-		'guessExtension'      => true
-	);
+    protected $_defaultSettings = array(
+        'baseDirectory'       => MEDIA_TRANSFER,
+        'filterDirectory'     => MEDIA_FILTER,
+        'createDirectory'     => true,
+        'createDirectoryMode' => 0755,
+        'mode'                => 0644,
+        'overwrite'           => false,
+        'guessExtension'      => true
+    );
 
 /**
  * Setup
@@ -99,10 +99,10 @@ class GeneratorBehavior extends ModelBehavior {
  * @param array $settings See defaultSettings for configuration options
  * @return void
  */
-	public function setup(Model $Model, $settings = array()) {
-		$settings = (array)$settings;
-		$this->settings[$Model->alias] = array_merge($this->_defaultSettings, $settings);
-	}
+    public function setup(Model $Model, $settings = array()) {
+        $settings = (array)$settings;
+        $this->settings[$Model->alias] = array_merge($this->_defaultSettings, $settings);
+    }
 
 /**
  * Callback
@@ -114,18 +114,18 @@ class GeneratorBehavior extends ModelBehavior {
  * @param boolean $created
  * @return boolean
  */
-	public function afterSave(Model $Model, $created) {
-		$item = $Model->data[$Model->alias];
+    public function afterSave(Model $Model, $created, $options = array()) {
+        $item = $Model->data[$Model->alias];
 
-		if (isset($item['dirname'], $item['basename'])) {
-			$file = $item['dirname'] . DS . $item['basename'];
-		} elseif (isset($item['file'])) {
-			$file = $item['file'];
-		} else {
-			return false;
-		}
-		return $this->make($Model, $file);
-	}
+        if (isset($item['dirname'], $item['basename'])) {
+            $file = $item['dirname'] . DS . $item['basename'];
+        } elseif (isset($item['file'])) {
+            $file = $item['file'];
+        } else {
+            return false;
+        }
+        return $this->make($Model, $file);
+    }
 
 /**
  * Parses instruction sets and invokes `makeVersion()` for each version on a file.
@@ -150,46 +150,46 @@ class GeneratorBehavior extends ModelBehavior {
  * @param string $file Path to a file relative to `baseDirectory`  or an absolute path to a file
  * @return boolean
  */
-	public function make(Model $Model, $file) {
-		extract($this->settings[$Model->alias]);
+    public function make(Model $Model, $file) {
+        extract($this->settings[$Model->alias]);
 
-		list($file, $relativeFile) = $this->_file($Model, $file);
-		$relativeDirectory = DS . rtrim(dirname($relativeFile), '.');
+        list($file, $relativeFile) = $this->_file($Model, $file);
+        $relativeDirectory = DS . rtrim(dirname($relativeFile), '.');
 
-		$filter = Configure::read('Media.filter.' . Mime_Type::guessName($file));
-		$result = true;
+        $filter = Configure::read('Media.filter.' . Mime_Type::guessName($file));
+        $result = true;
 
-		foreach ($filter as $version => $instructions) {
-			$directory = Folder::slashTerm($filterDirectory . $version . $relativeDirectory);
+        foreach ($filter as $version => $instructions) {
+            $directory = Folder::slashTerm($filterDirectory . $version . $relativeDirectory);
 
-			$Folder = new Folder($directory, $createDirectory, $createDirectoryMode);
-			if (!$Folder->pwd()) {
-				$message  = "GeneratorBehavior::make - Directory `{$directory}` ";
-				$message .= "could not be created or is not writable. ";
-				$message .= "Please check the permissions.";
-				trigger_error($message, E_USER_WARNING);
-				$result = false;
-				continue;
-			}
+            $Folder = new Folder($directory, $createDirectory, $createDirectoryMode);
+            if (!$Folder->pwd()) {
+                $message  = "GeneratorBehavior::make - Directory `{$directory}` ";
+                $message .= "could not be created or is not writable. ";
+                $message .= "Please check the permissions.";
+                trigger_error($message, E_USER_WARNING);
+                $result = false;
+                continue;
+            }
 
-			try {
-				$result = $Model->makeVersion($file, compact('version', 'directory', 'instructions'));
-			} catch (Exception $E) {
-				$message  = "GeneratorBehavior::make - While making version `{$version}` ";
-				$message .= "of file `{$file}` an exception was thrown, the message provided ";
-				$message .= 'was `' . $E->getMessage() . '`. Skipping version.';
-				trigger_error($message, E_USER_WARNING);
-				$result = false;
-			}
-			if (!$result) {
-				$message  = "GeneratorBehavior::make - The method responsible for making version ";
-				$message .= "`{$version}` of file `{$file}` returned `false`. Skipping version.";
-				trigger_error($message, E_USER_WARNING);
-				$result = false;
-			}
-		}
-		return $result;
-	}
+            try {
+                $result = $Model->makeVersion($file, compact('version', 'directory', 'instructions'));
+            } catch (Exception $E) {
+                $message  = "GeneratorBehavior::make - While making version `{$version}` ";
+                $message .= "of file `{$file}` an exception was thrown, the message provided ";
+                $message .= 'was `' . $E->getMessage() . '`. Skipping version.';
+                trigger_error($message, E_USER_WARNING);
+                $result = false;
+            }
+            if (!$result) {
+                $message  = "GeneratorBehavior::make - The method responsible for making version ";
+                $message .= "`{$version}` of file `{$file}` returned `false`. Skipping version.";
+                trigger_error($message, E_USER_WARNING);
+                $result = false;
+            }
+        }
+        return $result;
+    }
 
 /**
  * Generate a version of a file. If this method is reimplemented in the
@@ -240,64 +240,64 @@ class GeneratorBehavior extends ModelBehavior {
  * @param array $process directory, version, instructions
  * @return boolean `true` if version for the file was successfully stored
  */
-	public function makeVersion(Model $Model, $file, $process) {
-		extract($this->settings[$Model->alias]);
+    public function makeVersion(Model $Model, $file, $process) {
+        extract($this->settings[$Model->alias]);
 
-		/* Process builtin instructions */
-		if (isset($process['instructions']['clone'])) {
-			$action = $process['instructions']['clone'];
+        /* Process builtin instructions */
+        if (isset($process['instructions']['clone'])) {
+            $action = $process['instructions']['clone'];
 
-			if (!in_array($action, array('copy', 'link', 'symlink'))) {
-				return false;
-			}
+            if (!in_array($action, array('copy', 'link', 'symlink'))) {
+                return false;
+            }
 
-			$destination = $this->_destinationFile($file, $process['directory'], null, $overwrite);
+            $destination = $this->_destinationFile($file, $process['directory'], null, $overwrite);
 
-			if (!$destination) {
-				return false;
-			}
-			if (!call_user_func($action, $file, $destination)) {
-				return false;
-			}
-			return $action == 'copy' ? chmod($destination, $mode) : true;
-		}
+            if (!$destination) {
+                return false;
+            }
+            if (!call_user_func($action, $file, $destination)) {
+                return false;
+            }
+            return $action == 'copy' ? chmod($destination, $mode) : true;
+        }
 
-		/* Process `Media_Process_*` instructions */
-		$Media = Media_Process::factory(array('source' => $file));
-		foreach ($process['instructions'] as $method => $args) {
-			if (is_int($method)) {
-				$method = $args;
-				$args = null;
-			}
-			if (method_exists($Media, $method)) {
-				$result = call_user_func_array(array($Media, $method), (array) $args);
-			} else {
-				$result = $Media->passthru($method, $args);
-			}
-			if ($result === false) {
-				return false;
-			} elseif (is_a($result, 'Media_Process_Generic')) {
-				$Media = $result;
-			}
-		}
+        /* Process `Media_Process_*` instructions */
+        $Media = Media_Process::factory(array('source' => $file));
+        foreach ($process['instructions'] as $method => $args) {
+            if (is_int($method)) {
+                $method = $args;
+                $args = null;
+            }
+            if (method_exists($Media, $method)) {
+                $result = call_user_func_array(array($Media, $method), (array) $args);
+            } else {
+                $result = $Media->passthru($method, $args);
+            }
+            if ($result === false) {
+                return false;
+            } elseif (is_a($result, 'Media_Process_Generic')) {
+                $Media = $result;
+            }
+        }
 
-		/* Determine destination file */
-		$extension = null;
+        /* Determine destination file */
+        $extension = null;
 
-		if ($guessExtension) {
-			if (isset($process['instructions']['convert'])) {
-				$extension = Mime_Type::guessExtension($process['instructions']['convert']);
-			} else {
-				$extension = Mime_Type::guessExtension($file);
-			}
-		}
-		$destination = $this->_destinationFile($file, $process['directory'], $extension, $overwrite);
+        if ($guessExtension) {
+            if (isset($process['instructions']['convert'])) {
+                $extension = Mime_Type::guessExtension($process['instructions']['convert']);
+            } else {
+                $extension = Mime_Type::guessExtension($file);
+            }
+        }
+        $destination = $this->_destinationFile($file, $process['directory'], $extension, $overwrite);
 
-		if (!$destination) {
-			return false;
-		}
-		return $Media->store($destination) && chmod($destination, $mode);
-	}
+        if (!$destination) {
+            return false;
+        }
+        return $Media->store($destination) && chmod($destination, $mode);
+    }
 
 /**
  * Helper method to determine path to destination file and delete
@@ -309,22 +309,22 @@ class GeneratorBehavior extends ModelBehavior {
  * @param boolean $overwrite If true will unlink destination if it exists, defaults to false.
  * @return string Path to destination file.
  */
-	public function _destinationFile($source, $directory, $extension = null, $overwrite = false) {
-		$destination = $directory;
+    public function _destinationFile($source, $directory, $extension = null, $overwrite = false) {
+        $destination = $directory;
 
-		if ($extension) {
-			$destination .= pathinfo($source, PATHINFO_FILENAME) . '.' . $extension;
-		} else {
-			$destination .= basename($source);
-		}
-		if (file_exists($destination)) {
-			if (!$overwrite) {
-				return false;
-			}
-			unlink($destination);
-		}
-		return $destination;
-	}
+        if ($extension) {
+            $destination .= pathinfo($source, PATHINFO_FILENAME) . '.' . $extension;
+        } else {
+            $destination .= basename($source);
+        }
+        if (file_exists($destination)) {
+            if (!$overwrite) {
+                return false;
+            }
+            unlink($destination);
+        }
+        return $destination;
+    }
 
 /**
  * Returns relative and absolute path to a file
@@ -333,18 +333,18 @@ class GeneratorBehavior extends ModelBehavior {
  * @param string $file
  * @return array
  */
-	private function _file(Model $Model, $file) {
-		extract($this->settings[$Model->alias]);
-		$file = str_replace(array('\\', '/'), DS, $file);
+    private function _file(Model $Model, $file) {
+        extract($this->settings[$Model->alias]);
+        $file = str_replace(array('\\', '/'), DS, $file);
 
-		if (!is_file($file)) {
-			$file = ltrim($file, DS);
-			$relativeFile = $file;
-			$file = $baseDirectory . $file;
-		} else {
-			$relativeFile = str_replace($baseDirectory, null, $file);
-		}
-		return array($file, $relativeFile);
-	}
+        if (!is_file($file)) {
+            $file = ltrim($file, DS);
+            $relativeFile = $file;
+            $file = $baseDirectory . $file;
+        } else {
+            $relativeFile = str_replace($baseDirectory, null, $file);
+        }
+        return array($file, $relativeFile);
+    }
 }
 

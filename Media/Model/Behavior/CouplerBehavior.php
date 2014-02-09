@@ -58,7 +58,7 @@ class CouplerBehavior extends ModelBehavior {
  *
  * @var array
  */
-	public $settings = array();
+    public $settings = array();
 
 /**
  * Default settings
@@ -68,9 +68,9 @@ class CouplerBehavior extends ModelBehavior {
  *
  * @var array
  */
-	protected $_defaultSettings = array(
-		'baseDirectory' => MEDIA_TRANSFER
-	);
+    protected $_defaultSettings = array(
+        'baseDirectory' => MEDIA_TRANSFER
+    );
 
 /**
  * Setup
@@ -79,9 +79,9 @@ class CouplerBehavior extends ModelBehavior {
  * @param array $settings See defaultSettings for configuration options
  * @return void
  */
-	public function setup(Model $Model, $settings = array()) {
-		$this->settings[$Model->alias] = (array) $settings + $this->_defaultSettings;
-	}
+    public function setup(Model $Model, $settings = array()) {
+        $this->settings[$Model->alias] = (array) $settings + $this->_defaultSettings;
+    }
 
 /**
  * Callback
@@ -100,59 +100,59 @@ class CouplerBehavior extends ModelBehavior {
  * @param Model $Model
  * @return boolean
  */
-	public function beforeSave(Model $Model) {
-		if (!$Model->exists()) {
-			if (!isset($Model->data[$Model->alias]['file'])) {
-				unset($Model->data[$Model->alias]);
-				return true;
-			}
-		} else {
-			if (isset($Model->data[$Model->alias]['delete'])
-			&& $Model->data[$Model->alias]['delete'] !== '0') {
-				$Model->delete();
-				unset($Model->data[$Model->alias]);
-				return true;
-			}
-		}
+    public function beforeSave(Model $Model, $options = array()) {
+        if (!$Model->exists()) {
+            if (!isset($Model->data[$Model->alias]['file'])) {
+                unset($Model->data[$Model->alias]);
+                return true;
+            }
+        } else {
+            if (isset($Model->data[$Model->alias]['delete'])
+            && $Model->data[$Model->alias]['delete'] !== '0') {
+                $Model->delete();
+                unset($Model->data[$Model->alias]);
+                return true;
+            }
+        }
 
-		$blacklist = array(
-			'dirname', 'basename', 'checksum', 'delete'
-		);
-		$whitelist = array(
-			'id', 'file', 'model', 'foreign_key',
-			'created', 'modified', 'alternative'
-		);
+        $blacklist = array(
+            'dirname', 'basename', 'checksum', 'delete'
+        );
+        $whitelist = array(
+            'id', 'file', 'model', 'foreign_key',
+            'created', 'modified', 'alternative'
+        );
 
-		foreach ($Model->data[$Model->alias] as $key => $value) {
-			if (in_array($key, $whitelist)) {
-				continue;
-			}
-			if (in_array($key, $blacklist)) {
-				unset($Model->data[$Model->alias][$key]);
-			}
-		}
+        foreach ($Model->data[$Model->alias] as $key => $value) {
+            if (in_array($key, $whitelist)) {
+                continue;
+            }
+            if (in_array($key, $blacklist)) {
+                unset($Model->data[$Model->alias][$key]);
+            }
+        }
 
-		extract($this->settings[$Model->alias]);
+        extract($this->settings[$Model->alias]);
 
-		if (isset($Model->data[$Model->alias]['file'])) {
-			$File = new File($Model->data[$Model->alias]['file']);
+        if (isset($Model->data[$Model->alias]['file'])) {
+            $File = new File($Model->data[$Model->alias]['file']);
 
-			/* `baseDirectory` may equal the file's directory or use backslashes */
-			$dirname = substr(str_replace(
-				str_replace('\\', '/', $baseDirectory),
-				null,
-				str_replace('\\', '/', Folder::slashTerm($File->Folder->pwd()))
-			), 0, -1);
+            /* `baseDirectory` may equal the file's directory or use backslashes */
+            $dirname = substr(str_replace(
+                str_replace('\\', '/', $baseDirectory),
+                null,
+                str_replace('\\', '/', Folder::slashTerm($File->Folder->pwd()))
+            ), 0, -1);
 
-			$result = array(
-				'dirname'  => $dirname,
-				'basename' => $File->name,
-			);
+            $result = array(
+                'dirname'  => $dirname,
+                'basename' => $File->name,
+            );
 
-			$Model->data[$Model->alias] = array_merge($Model->data[$Model->alias], $result);
-		}
-		return true;
-	}
+            $Model->data[$Model->alias] = array_merge($Model->data[$Model->alias], $result);
+        }
+        return true;
+    }
 
 /**
  * Callback, deletes file (if there's one coupled) corresponding to record. If
@@ -163,25 +163,25 @@ class CouplerBehavior extends ModelBehavior {
  * @param boolean $cascade
  * @return boolean
  */
-	public function beforeDelete(Model $Model, $cascade = true) {
-		extract($this->settings[$Model->alias]);
+    public function beforeDelete(Model $Model, $cascade = true) {
+        extract($this->settings[$Model->alias]);
 
-		$result = $Model->find('first', array(
-			'conditions' => array($Model->primaryKey => $Model->id),
-			'fields'     => array('dirname', 'basename'),
-			'recursive'  => -1,
-		));
-		if (!$result[$Model->alias]['dirname'] || !$result[$Model->alias]['basename']) {
-			return true;
-		}
+        $result = $Model->find('first', array(
+            'conditions' => array($Model->primaryKey => $Model->id),
+            'fields'     => array('dirname', 'basename'),
+            'recursive'  => -1,
+        ));
+        if (!$result[$Model->alias]['dirname'] || !$result[$Model->alias]['basename']) {
+            return true;
+        }
 
-		$file  = $baseDirectory;
-		$file .= $result[$Model->alias]['dirname'];
-		$file .= DS . $result[$Model->alias]['basename'];
+        $file  = $baseDirectory;
+        $file .= $result[$Model->alias]['dirname'];
+        $file .= DS . $result[$Model->alias]['basename'];
 
-		$File = new File($file);
-		return $File->delete();
-	}
+        $File = new File($file);
+        return $File->delete();
+    }
 
 /**
  * Callback, adds the `file` field to each result.
@@ -191,25 +191,25 @@ class CouplerBehavior extends ModelBehavior {
  * @param boolean $primary
  * @return array
  */
-	public function afterFind(Model $Model, $results, $primary = false) {
-		if (empty($results)) {
-			return $results;
-		}
-		extract($this->settings[$Model->alias]);
+    public function afterFind(Model $Model, $results, $primary = false) {
+        if (empty($results)) {
+            return $results;
+        }
+        extract($this->settings[$Model->alias]);
 
-		foreach ($results as $key => &$result) {
-			if (!isset($result[$Model->alias]['dirname'], $result[$Model->alias]['basename'])) {
-				continue;
-			}
-			$file  = $baseDirectory;
-			$file .= $result[$Model->alias]['dirname'];
-			$file .= DS . $result[$Model->alias]['basename'];
-			$file = str_replace(array('\\', '/'), DS, $file);
+        foreach ($results as $key => &$result) {
+            if (!isset($result[$Model->alias]['dirname'], $result[$Model->alias]['basename'])) {
+                continue;
+            }
+            $file  = $baseDirectory;
+            $file .= $result[$Model->alias]['dirname'];
+            $file .= DS . $result[$Model->alias]['basename'];
+            $file = str_replace(array('\\', '/'), DS, $file);
 
-			$result[$Model->alias]['file'] = $file;
-		}
-		return $results;
-	}
+            $result[$Model->alias]['file'] = $file;
+        }
+        return $results;
+    }
 
 /**
  * Checks if an alternative text is given only if a file is submitted
@@ -218,11 +218,11 @@ class CouplerBehavior extends ModelBehavior {
  * @param array $field
  * @return boolean
  */
-	public function checkRepresent(Model $Model, $field) {
-		if (!isset($Model->data[$Model->alias]['file'])) {
-			return true;
-		}
-		$value = current($field);
-		return !empty($value);
-	}
+    public function checkRepresent(Model $Model, $field) {
+        if (!isset($Model->data[$Model->alias]['file'])) {
+            return true;
+        }
+        $value = current($field);
+        return !empty($value);
+    }
 }

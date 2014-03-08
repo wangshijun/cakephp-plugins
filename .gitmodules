@@ -22,3 +22,6 @@
 [submodule "Tags"]
 	path = Tags
 	url = git://github.com/fegeeks/cakephp-tags.git
+[submodule "CakePdf"]
+	path = CakePdf
+	url = git://github.com/ceeram/CakePdf.git

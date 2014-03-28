@@ -25,3 +25,6 @@
 [submodule "CakePdf"]
 	path = CakePdf
 	url = git://github.com/ceeram/CakePdf.git
+[submodule "Tools"]
+	path = Tools
+	url = https://github.com/dereuromark/tools.git

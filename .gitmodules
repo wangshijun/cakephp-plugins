@@ -28,3 +28,6 @@
 [submodule "Tools"]
 	path = Tools
 	url = https://github.com/dereuromark/tools.git
+[submodule "BoostCake"]
+	path = BoostCake
+	url = https://github.com/slywalker/cakephp-plugin-boost_cake.git
